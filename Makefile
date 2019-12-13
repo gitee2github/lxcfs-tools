@@ -30,12 +30,12 @@ local: toolkit lxcfs-hook
 
 toolkit:  $(SOURCES) | $(DEPS_LINK)
 	@echo "Making isulad-lxcfs-tools..."
-	${ENV} go build -tags ${TAGS} -ldflags ${GO_LDFLAGS} -o build/isulad-lxcfs-toolkit .
+	${ENV} go build -mod=vendor -tags ${TAGS} -ldflags ${GO_LDFLAGS} -o build/isulad-lxcfs-toolkit .
 	@echo "Done!"
 
 lxcfs-hook: $(SOURCES) | $(DEPS_LINK)
 	@echo "Making lxcfs-hook..."
-	${ENV} go build -tags ${TAGS} -ldflags ${GO_LDFLAGS} -o build/lxcfs-hook ./hooks/lxcfs-hook
+	${ENV} go build -mod=vendor -tags ${TAGS} -ldflags ${GO_LDFLAGS} -o build/lxcfs-hook ./hooks/lxcfs-hook
 	@echo "Done!"
 
 clean:

@@ -30,7 +30,6 @@ gzip -dc $RPM_BUILD_SOURCE/%{name}.tar.gz | tar -xvvf -
 
 %build
 cd $RPM_BUILD_DIR/src/isula.org/isulad-lxcfs-toolkit
-export GOPATH=%_topdir/BUILD
 make
 
 %install

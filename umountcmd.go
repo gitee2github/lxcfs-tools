@@ -17,12 +17,11 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"isulad-lxcfs-toolkit/libmount"
 	"os"
 	"strings"
 	"sync"
 	"time"
-
-	"isula.org/isulad-lxcfs-toolkit/libmount"
 
 	isulad_lxcfs_log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"

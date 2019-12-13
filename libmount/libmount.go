@@ -14,7 +14,7 @@
 package libmount
 
 import (
-	"isula.org/isulad-lxcfs-toolkit/libmount/nsexec"
+	"isulad-lxcfs-toolkit/libmount/nsexec"
 )
 
 // NsExecMount exec mount in container namespace

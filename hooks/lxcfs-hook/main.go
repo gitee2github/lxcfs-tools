@@ -17,7 +17,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"isula.org/isulad-lxcfs-toolkit/hooks/lxcfs-hook/utils"
+	"isulad-lxcfs-toolkit/hooks/lxcfs-hook/utils"
 	"os"
 
 	"github.com/docker/docker/pkg/reexec"

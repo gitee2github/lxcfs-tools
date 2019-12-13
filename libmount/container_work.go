@@ -16,7 +16,7 @@ package libmount
 import (
 	"encoding/json"
 	"fmt"
-	"isula.org/isulad-lxcfs-toolkit/libmount/nsexec"
+	"isulad-lxcfs-toolkit/libmount/nsexec"
 	"os"
 	"strconv"
 	"strings"

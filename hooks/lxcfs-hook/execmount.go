@@ -17,7 +17,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"isula.org/isulad-lxcfs-toolkit/libmount"
+	"isulad-lxcfs-toolkit/libmount"
 	"os"
 	"strconv"
 
