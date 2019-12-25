@@ -85,9 +85,7 @@ var umountContainer = cli.Command{
 
 func umountAll(initMountns, initUserns string) error {
 	isulad_lxcfs_log.Info("begin umount All runing container...")
-	atLeastLen := 10
-	index := 9
-	out, err := execCommond("lcrc", []string{"ps"})
+	out, err := execCommond("lcrc", []string{"ps", "--format", "{{.ID}} {{.Pid}}"})
 	if err != nil {
 		return err
 	}
@@ -95,28 +93,23 @@ func umountAll(initMountns, initUserns string) error {
 	var wg sync.WaitGroup
 	for _, value := range out {
 		containerslice := strings.Fields(value)
-		if len(containerslice) < atLeastLen {
+		if len(containerslice) < 2 {
 			continue
 		}
-
-		if containerslice[index] == "ID" {
-			continue
-		}
-
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
 			res := make(chan struct{}, 1)
 			go func() {
-				if err := umountForContainer(initMountns, initUserns, containerslice[index], containerslice[1], true); err != nil {
-					isulad_lxcfs_log.Errorf("umount lxcfs dir from container(%s) failed: %v", containerslice[index], err)
+				if err := umountForContainer(initMountns, initUserns, containerslice[0], containerslice[1], true); err != nil {
+					isulad_lxcfs_log.Errorf("umount lxcfs dir from container(%s) failed: %v", containerslice[0], err)
 				}
 				res <- struct{}{}
 			}()
 			select {
 			case <-res:
 			case <-time.After(30 * time.Second): // 30s timeout
-				isulad_lxcfs_log.Errorf("umount lxcfs dir from container(%s) timeout", containerslice[index])
+				isulad_lxcfs_log.Errorf("umount lxcfs dir from container(%s) timeout", containerslice[0])
 			}
 		}()
 
