@@ -50,7 +50,7 @@ func prestartMountHook(pid int, rootfs string) error {
 		valueMountPaths = append(valueMountPaths, fmt.Sprintf("/var/lib/lxc/lxcfs/proc/%s", value.Name()))
 	}
 
-	if err := libmount.NsExecMount(strconv.Itoa(pid), valueMountPaths, valuePaths); err != nil {
+	if err := libmount.NsExecMount(strconv.Itoa(pid), rootfs, valueMountPaths, valuePaths); err != nil {
 		isulad_lxcfs_log.Errorf("mount %v into container error: %v", valueMountPaths, err)
 		return err
 	}

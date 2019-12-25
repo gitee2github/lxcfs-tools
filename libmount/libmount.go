@@ -18,9 +18,11 @@ import (
 )
 
 // NsExecMount exec mount in container namespace
-func NsExecMount(pid string, srcPaths []string, destPaths []string) error {
+func NsExecMount(pid string, rootfs string, srcPaths []string, destPaths []string) error {
 	driver := nsexec.NewDefaultNsDriver()
-	mount := &nsexec.Mount{}
+	mount := &nsexec.Mount{
+        Rootfs: rootfs,
+    }
 	for i := 0; i < len(srcPaths) && i < len(destPaths); i++ {
 		mount.SrcPaths = append(mount.SrcPaths, srcPaths[i])
 		mount.DestPaths = append(mount.DestPaths, destPaths[i])
