@@ -25,6 +25,10 @@ import (
 	"github.com/docker/docker/pkg/reexec"
 )
 
+var (
+    lxcfsPath = "/var/lib/lxc/lxcfs/cgroup"
+)
+
 func init() {
 	reexec.Register(nsexec.NsEnterReexecName, WorkInContainer)
 }
@@ -94,6 +98,14 @@ func doMount(pipe *os.File) error {
 	if err := json.NewDecoder(pipe).Decode(&mount); err != nil {
 		return err
 	}
+
+    // remount lxcfs cgroup path readonly
+    if err := syscall.Mount(mount.Rootfs+lxcfsPath, mount.Rootfs+lxcfsPath, "none", syscall.MS_BIND, ""); err != nil {
+        return err
+    }
+    if err := syscall.Mount(mount.Rootfs+lxcfsPath, mount.Rootfs+lxcfsPath, "none", syscall.MS_BIND|syscall.MS_REMOUNT|syscall.MS_RDONLY, ""); err != nil {
+        return err
+    }
 	for i := 0; i < len(mount.SrcPaths) && i < len(mount.DestPaths); i++ {
 		if err := syscall.Mount(mount.SrcPaths[i], mount.DestPaths[i], "none", syscall.MS_BIND, ""); err != nil {
 			return err
@@ -114,5 +126,10 @@ func doUmount(pipe *os.File) error {
 			}
 		}
 	}
+    if err := syscall.Unmount(lxcfsPath, 0); err != nil {
+        if !strings.Contains(err.Error(), "invalid argument") {
+            return err
+        }
+    }
 	return nil
 }

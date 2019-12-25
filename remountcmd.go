@@ -254,7 +254,7 @@ func remountToContainer(initMountns, initUserns, containerid string, pid string,
 		isulad_lxcfs_log.Errorf("unmount %v for container error: %v", valuePaths, err)
 	}
 
-	if err := libmount.NsExecMount(pid, valueMountPaths, valuePaths); err != nil {
+	if err := libmount.NsExecMount(pid, "", valueMountPaths, valuePaths); err != nil {
 		isulad_lxcfs_log.Errorf("mount %v into container %s error: %v", valueMountPaths, containerid, err)
 		return err
 	}

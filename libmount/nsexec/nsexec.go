@@ -41,6 +41,7 @@ const (
 
 // Mount is mount argument
 type Mount struct {
+    Rootfs    string
 	SrcPaths  []string
 	DestPaths []string
 }
