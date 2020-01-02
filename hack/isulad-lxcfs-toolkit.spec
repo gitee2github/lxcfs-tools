@@ -6,7 +6,8 @@ Name:		isulad-lxcfs-toolkit
 Version:	0.3
 Release:	15
 Summary:	toolkit for lxcfs to remount a running isulad
-License:	Mulan PSL v1		
+License:  Mulan PSL v1
+URL:      https://gitee.com/src-openeuler/iSulad-lxcfs-toolkit
 Source0:	%{name}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-root
 
