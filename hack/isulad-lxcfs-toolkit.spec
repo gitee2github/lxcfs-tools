@@ -34,7 +34,7 @@ cd $RPM_BUILD_DIR/src/isula.org/isulad-lxcfs-toolkit
 make
 
 %install
-HOOK_DIR=$RPM_BUILD_ROOT/var/lib/lcrd/hooks
+HOOK_DIR=$RPM_BUILD_ROOT/var/lib/isulad/hooks
 ISULAD_LXCFS_TOOLKIT_DIR=$RPM_BUILD_ROOT/usr/local/bin
 
 cd $RPM_BUILD_DIR/src/isula.org/isulad-lxcfs-toolkit
@@ -50,18 +50,18 @@ install -m 0750 build/isulad-lxcfs-toolkit ${ISULAD_LXCFS_TOOLKIT_DIR}
 %preun
 
 %post
-GRAPH=`lcrc info | grep -Eo "iSulad Root Dir:.+" | grep -Eo "\/.*"` 
+GRAPH=`isula info | grep -Eo "iSulad Root Dir:.+" | grep -Eo "\/.*"` 
 if [ "$GRAPH" == "" ]; then
-    GRAPH="/var/lib/lcrd"
+    GRAPH="/var/lib/isulad"
 fi
 
-if [[ ("$GRAPH" != "/var/lib/lcrd") ]]; then
+if [[ ("$GRAPH" != "/var/lib/isulad") ]]; then
     mkdir -p -m 0550 $GRAPH/hooks
-    install -m 0550 -p /var/lib/lcrd/hooks/lxcfs-hook $GRAPH/hooks
+    install -m 0550 -p /var/lib/isulad/hooks/lxcfs-hook $GRAPH/hooks
 
     echo
     echo "=================== WARNING! ================================================"
-    echo " 'iSulad Root Dir' is $GRAPH, move /var/lib/lcrd/hooks/lxcfs-hook to  $GRAPH/hooks"
+    echo " 'iSulad Root Dir' is $GRAPH, move /var/lib/isulad/hooks/lxcfs-hook to  $GRAPH/hooks"
     echo "============================================================================="
     echo
 fi
@@ -90,8 +90,8 @@ chmod 0640 ${HOOK_SPEC}/hookspec.json
 %files
 %defattr(0550,root,root,0550)
 /usr/local/bin/isulad-lxcfs-toolkit
-%attr(0550,root,root) /var/lib/lcrd/hooks
-%attr(0550,root,root) /var/lib/lcrd/hooks/lxcfs-hook
+%attr(0550,root,root) /var/lib/isulad/hooks
+%attr(0550,root,root) /var/lib/isulad/hooks/lxcfs-hook
 
 #Clean section
 %clean 
