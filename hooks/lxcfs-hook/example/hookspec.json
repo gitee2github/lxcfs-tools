@@ -1,7 +1,7 @@
 {
         "prestart": [
         {
-                "path": "/var/lib/lcrd/hooks/lxcfs-hook",
+                "path": "/var/lib/isulad/hooks/lxcfs-hook",
                 "args": ["lxcfs-hook", "--log", "/var/log/lxcfs-hook.log"],
                 "env": []
         }

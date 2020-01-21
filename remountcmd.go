@@ -179,7 +179,7 @@ func waitForLxcfs() error {
 
 func remountAll(initMountns, initUserns string) error {
 	isulad_lxcfs_log.Info("begin remount All runing container...")
-	out, err := execCommond("lcrc", []string{"ps", "--format", "{{.ID}} {{.Pid}}"})
+	out, err := execCommond("isula", []string{"ps", "--format", "{{.ID}} {{.Pid}}"})
 	if err != nil {
 		return err
 	}
@@ -260,7 +260,7 @@ func isContainerExsit(containerid string) (string, error) {
 		return "", fmt.Errorf("Containerid mustn't be empty")
 	}
 
-	out, err := execCommond("lcrc", []string{"ps", "--format", "{{.ID}} {{.Pid}}"})
+	out, err := execCommond("isula", []string{"ps", "--format", "{{.ID}} {{.Pid}}"})
 	if err != nil {
 		onfail(err)
 	}
