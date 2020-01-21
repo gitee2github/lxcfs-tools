@@ -1,5 +1,5 @@
 // Copyright (c) Huawei Technologies Co., Ltd. 2019. All rights reserved.
-// iSulad-lxcfs-toolkit is licensed under the Mulan PSL v1.
+// lxcfs-tools is licensed under the Mulan PSL v1.
 // You can use this software according to the terms and conditions of the Mulan PSL v1.
 // You may obtain a copy of Mulan PSL v1 at:
 //     http://license.coscl.org.cn/MulanPSL
@@ -17,13 +17,13 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"isulad-lxcfs-toolkit/libmount"
+	"lxcfs-tools/libmount"
 	"os"
 	"strings"
 	"sync"
 	"time"
 
-	isulad_lxcfs_log "github.com/sirupsen/logrus"
+	lxcfs_log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 )
 
@@ -62,7 +62,7 @@ var umountContainer = cli.Command{
 			onfail(fmt.Errorf("read init user namespace fail: %v", err))
 		}
 		if context.Bool("all") {
-			isulad_lxcfs_log.Info("umount for all containers")
+			lxcfs_log.Info("umount for all containers")
 			if err := umountAll(initMountns, initUserns); err != nil {
 				onfail(err)
 			}
@@ -84,7 +84,7 @@ var umountContainer = cli.Command{
 }
 
 func umountAll(initMountns, initUserns string) error {
-	isulad_lxcfs_log.Info("begin umount All runing container...")
+	lxcfs_log.Info("begin umount All runing container...")
 	out, err := execCommond("isula", []string{"ps", "--format", "{{.ID}} {{.Pid}}"})
 	if err != nil {
 		return err
@@ -102,20 +102,20 @@ func umountAll(initMountns, initUserns string) error {
 			res := make(chan struct{}, 1)
 			go func() {
 				if err := umountForContainer(initMountns, initUserns, containerslice[0], containerslice[1], true); err != nil {
-					isulad_lxcfs_log.Errorf("umount lxcfs dir from container(%s) failed: %v", containerslice[0], err)
+					lxcfs_log.Errorf("umount lxcfs dir from container(%s) failed: %v", containerslice[0], err)
 				}
 				res <- struct{}{}
 			}()
 			select {
 			case <-res:
 			case <-time.After(30 * time.Second): // 30s timeout
-				isulad_lxcfs_log.Errorf("umount lxcfs dir from container(%s) timeout", containerslice[0])
+				lxcfs_log.Errorf("umount lxcfs dir from container(%s) timeout", containerslice[0])
 			}
 		}()
 
 	}
 	wg.Wait()
-	isulad_lxcfs_log.Info(" umount All done...")
+	lxcfs_log.Info(" umount All done...")
 	return nil
 }
 
@@ -128,7 +128,7 @@ func umountForContainer(initMountns, initUserns, containerid string, pid string,
 		}
 	}
 
-	isulad_lxcfs_log.Infof("begin umount container,container id: %s, pid: %s", containerid, pid)
+	lxcfs_log.Infof("begin umount container,container id: %s, pid: %s", containerid, pid)
 
 	lxcfssubpath, err := ioutil.ReadDir("/var/lib/lxc/lxcfs/proc")
 	if err != nil {
@@ -149,7 +149,7 @@ func umountForContainer(initMountns, initUserns, containerid string, pid string,
 	}
 
 	if err := libmount.NsExecUmount(pid, valuePaths); err != nil {
-		isulad_lxcfs_log.Errorf("unmount %v for container %s error: %v", valuePaths, containerid, err)
+		lxcfs_log.Errorf("unmount %v for container %s error: %v", valuePaths, containerid, err)
 		return err
 	}
 	return nil

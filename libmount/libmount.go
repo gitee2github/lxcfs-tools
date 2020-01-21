@@ -1,5 +1,5 @@
 // Copyright (c) Huawei Technologies Co., Ltd. 2019. All rights reserved.
-// iSulad-lxcfs-toolkit is licensed under the Mulan PSL v1.
+// lxcfs-tools is licensed under the Mulan PSL v1.
 // You can use this software according to the terms and conditions of the Mulan PSL v1.
 // You may obtain a copy of Mulan PSL v1 at:
 //     http://license.coscl.org.cn/MulanPSL
@@ -14,7 +14,7 @@
 package libmount
 
 import (
-	"isulad-lxcfs-toolkit/libmount/nsexec"
+	"lxcfs-tools/libmount/nsexec"
 )
 
 // NsExecMount exec mount in container namespace

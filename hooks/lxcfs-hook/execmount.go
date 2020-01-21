@@ -1,5 +1,5 @@
 // Copyright (c) Huawei Technologies Co., Ltd. 2019. All rights reserved.
-// iSulad-lxcfs-toolkit is licensed under the Mulan PSL v1.
+// lxcfs-tools is licensed under the Mulan PSL v1.
 // You can use this software according to the terms and conditions of the Mulan PSL v1.
 // You may obtain a copy of Mulan PSL v1 at:
 //     http://license.coscl.org.cn/MulanPSL
@@ -17,17 +17,17 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"isulad-lxcfs-toolkit/libmount"
+	"lxcfs-tools/libmount"
 	"os"
 	"strconv"
 
-	isulad_lxcfs_log "github.com/sirupsen/logrus"
+	lxcfs_log "github.com/sirupsen/logrus"
 )
 
 func prestartMountHook(pid int, rootfs string) error {
 	lxcfssubpath, err := ioutil.ReadDir("/var/lib/lxc/lxcfs/proc")
 	if err != nil {
-		isulad_lxcfs_log.Errorf("Prase lxcfs dir failed: %v", err)
+		lxcfs_log.Errorf("Prase lxcfs dir failed: %v", err)
 		return err
 	}
 
@@ -51,7 +51,7 @@ func prestartMountHook(pid int, rootfs string) error {
 	}
 
 	if err := libmount.NsExecMount(strconv.Itoa(pid), rootfs, valueMountPaths, valuePaths); err != nil {
-		isulad_lxcfs_log.Errorf("mount %v into container error: %v", valueMountPaths, err)
+		lxcfs_log.Errorf("mount %v into container error: %v", valueMountPaths, err)
 		return err
 	}
 	return nil
