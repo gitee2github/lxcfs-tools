@@ -1,5 +1,5 @@
 # Copyright (c) Huawei Technologies Co., Ltd. 2019. All rights reserved.
-# iSulad-lxcfs-toolkit is licensed under the Mulan PSL v1.
+# lxcfs-tools is licensed under the Mulan PSL v1.
 # You can use this software according to the terms and conditions of the Mulan PSL v1.
 # You may obtain a copy of Mulan PSL v1 at:
 #     http://license.coscl.org.cn/MulanPSL
@@ -29,8 +29,8 @@ all: toolkit lxcfs-hook
 local: toolkit lxcfs-hook
 
 toolkit:  $(SOURCES) | $(DEPS_LINK)
-	@echo "Making isulad-lxcfs-tools..."
-	${ENV} go build -mod=vendor -tags ${TAGS} -ldflags ${GO_LDFLAGS} -o build/isulad-lxcfs-toolkit .
+	@echo "Making lxcfs-tools..."
+	${ENV} go build -mod=vendor -tags ${TAGS} -ldflags ${GO_LDFLAGS} -o build/lxcfs-tools .
 	@echo "Done!"
 
 lxcfs-hook: $(SOURCES) | $(DEPS_LINK)

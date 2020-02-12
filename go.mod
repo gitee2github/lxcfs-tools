@@ -1,4 +1,4 @@
-module isulad-lxcfs-toolkit
+module lxcfs-tools
 
 replace (
 	github.com/docker/docker => github.com/docker/engine v0.0.0-20181106193140-f5749085e9cb

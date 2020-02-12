@@ -2,12 +2,12 @@
 %define debug_package %{nil}
 
 #Basic Information
-Name:		isulad-lxcfs-toolkit
+Name:		lxcfs-tools
 Version:	0.3
-Release:	15
+Release:	16
 Summary:	toolkit for lxcfs to remount a running isulad
 License:  Mulan PSL v1
-URL:      https://gitee.com/src-openeuler/iSulad-lxcfs-toolkit
+URL:      https://gitee.com/src-openeuler/lxcfs-tools
 Source0:	%{name}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-root
 
@@ -26,23 +26,23 @@ export RPM_BUILD_SOURCE=%_topdir/SOURCES
 
 cd $RPM_BUILD_DIR
 
-mkdir -p $RPM_BUILD_DIR/src/isula.org/isulad-lxcfs-toolkit && cd $RPM_BUILD_DIR/src/isula.org/isulad-lxcfs-toolkit
+mkdir -p $RPM_BUILD_DIR/src/isula.org/lxcfs-tools && cd $RPM_BUILD_DIR/src/isula.org/lxcfs-tools
 gzip -dc $RPM_BUILD_SOURCE/%{name}.tar.gz | tar -xvvf -
 
 %build
-cd $RPM_BUILD_DIR/src/isula.org/isulad-lxcfs-toolkit
+cd $RPM_BUILD_DIR/src/isula.org/lxcfs-tools
 make
 
 %install
 HOOK_DIR=$RPM_BUILD_ROOT/var/lib/isulad/hooks
-ISULAD_LXCFS_TOOLKIT_DIR=$RPM_BUILD_ROOT/usr/local/bin
+LXCFS_TOOLS_DIR=$RPM_BUILD_ROOT/usr/local/bin
 
-cd $RPM_BUILD_DIR/src/isula.org/isulad-lxcfs-toolkit
+cd $RPM_BUILD_DIR/src/isula.org/lxcfs-tools
 mkdir -p -m 0700 ${HOOK_DIR}
-mkdir -p -m 0700 ${ISULAD_LXCFS_TOOLKIT_DIR}
+mkdir -p -m 0700 ${LXCFS_TOOLS_DIR}
 
 install -m 0750 build/lxcfs-hook ${HOOK_DIR}
-install -m 0750 build/isulad-lxcfs-toolkit ${ISULAD_LXCFS_TOOLKIT_DIR}
+install -m 0750 build/lxcfs-tools ${LXCFS_TOOLS_DIR}
 
 #Install and uninstall scripts
 %pre
@@ -89,7 +89,7 @@ chmod 0640 ${HOOK_SPEC}/hookspec.json
 #Files list
 %files
 %defattr(0550,root,root,0550)
-/usr/local/bin/isulad-lxcfs-toolkit
+/usr/local/bin/lxcfs-tools
 %attr(0550,root,root) /var/lib/isulad/hooks
 %attr(0550,root,root) /var/lib/isulad/hooks/lxcfs-hook
 
@@ -99,5 +99,8 @@ rm -rfv %{buildroot}
 
 
 %changelog
+* Tue Jan 7 2020 Zhangsong <zhangsong34@huawei.com> - 0.3.16
+- update package
+
 * Thu Feb 1 2018 Tanzhe <tanzhe@huawei.com>
 - add require version

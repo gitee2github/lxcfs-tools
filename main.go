@@ -1,5 +1,5 @@
 // Copyright (c) Huawei Technologies Co., Ltd. 2019. All rights reserved.
-// iSulad-lxcfs-toolkit is licensed under the Mulan PSL v1.
+// lxcfs-tools is licensed under the Mulan PSL v1.
 // You can use this software according to the terms and conditions of the Mulan PSL v1.
 // You may obtain a copy of Mulan PSL v1 at:
 //     http://license.coscl.org.cn/MulanPSL
@@ -21,19 +21,19 @@ import (
 
 	"github.com/docker/docker/pkg/reexec"
 	_ "github.com/opencontainers/runc/libcontainer/nsenter"
-	isulad_lxcfs_log "github.com/sirupsen/logrus"
+	lxcfs_log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli"
 )
 
 const (
 	usage     = `Toolkit for reconnet to a running isulad using lxcfs`
-	syslogTag = "isulad-lxcfs-tools"
+	syslogTag = "lxcfs-tools"
 )
 
 var version = "0.1"
 
 func onfail(err error) {
-	isulad_lxcfs_log.Error(err)
+	lxcfs_log.Error(err)
 	fmt.Fprint(os.Stderr, err)
 	os.Exit(1)
 }
@@ -44,7 +44,7 @@ func onfailf(t string, v ...interface{}) {
 
 func runToolkit() {
 	app := cli.NewApp()
-	app.Name = "isulad-lxcfs-toolkit"
+	app.Name = "lxcfs-tools"
 	app.Usage = usage
 
 	v := []string{

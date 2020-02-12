@@ -1,5 +1,5 @@
 # Copyright (c) Huawei Technologies Co., Ltd. 2019. All rights reserved.
-# iSulad-lxcfs-toolkit is licensed under the Mulan PSL v1.
+# lxcfs-tools is licensed under the Mulan PSL v1.
 # You can use this software according to the terms and conditions of the Mulan PSL v1.
 # You may obtain a copy of Mulan PSL v1 at:
 #     http://license.coscl.org.cn/MulanPSL
@@ -14,10 +14,10 @@
 #!/bin/bash 
 
 
-ISULAD_LXCFS_TOOLKIT_DIR=/usr/local/bin
+LXCFS_TOOLS_DIR=/usr/local/bin
 
-echo "isulad_lxcfs_toolkit will be installed to $ISULAD_LXCFS_TOOLKIT_DIR"
+echo "lxcfs-tools will be installed to $LXCFS_TOOLS_DIR"
 
-install -m 0755 -p ../build/isulad_lxcfs_toolkit ${ISULAD_LXCFS_TOOLKIT_DIR}
+install -m 0755 -p ../build/lxcfs-tools ${LXCFS_TOOLS_DIR}
 
-echo "isulad_lxcfs_toolkit  install  done"
+echo "lxcfs-tools  install  done"
