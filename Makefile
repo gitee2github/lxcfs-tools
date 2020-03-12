@@ -11,12 +11,16 @@
 # Author: zhangsong
 # Create: 2019-01-18
 
+COMMIT=$(shell git rev-parse HEAD 2> /dev/null || true)
 SOURCES := $(shell find . 2>&1 | grep -E '.*\.(c|h|go)$$')
 DEPS_LINK := $(CURDIR)/vendor/
 VERSION := $(shell cat ./VERSION)
 TAGS="cgo static_build"
 
-GO_LDFLAGS="-s -w -extldflags=-zrelro -extldflags=-znow -X main.version=${VERSION}"
+BEP_DIR=/tmp/lxcfs-tools-build-bep
+BEP_FLAGS=-tmpdir=/tmp/lxcfs-tools-build-bep
+
+GO_LDFLAGS="-w -buildid=IdByiSula -extldflags -static $(BEP_FLAGS) -X main.gitCommit=${COMMIT} -X main.version=${VERSION}"
 DEF_GOPATH=${GOPATH}
 ifneq ($(GOPATH), )
 CUS_GOPATH=${GOPATH}:${PWD}
@@ -25,8 +29,9 @@ else
 ENV = CGO_ENABLED=1
 endif
 
-all: toolkit lxcfs-hook
-local: toolkit lxcfs-hook
+all: dep toolkit lxcfs-hook
+dep:
+	mkdir -p $(BEP_DIR)
 
 toolkit:  $(SOURCES) | $(DEPS_LINK)
 	@echo "Making lxcfs-tools..."
