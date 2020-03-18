@@ -156,7 +156,8 @@ func doprestart() error {
 
 func waitForLxcfs() error {
 	count := 0
-	maxCount := 100
+	// bugfix: wait a bit long time for lxcfs ready
+	maxCount := 300
 
 	for count < maxCount {
 		_, err := ioutil.ReadDir("/var/lib/lxc/lxcfs/proc")
