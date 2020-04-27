@@ -4,9 +4,9 @@
 #Basic Information
 Name:		lxcfs-tools
 Version:	0.3
-Release:	16
+Release:	17
 Summary:	toolkit for lxcfs to remount a running isulad
-License:  Mulan PSL v1
+License:  Mulan PSL v2
 URL:      https://gitee.com/src-openeuler/lxcfs-tools
 Source0:	%{name}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-root
@@ -99,6 +99,9 @@ rm -rfv %{buildroot}
 
 
 %changelog
+* Tue Apr 27 2020 zhangtianyang <zhangtianyang2@huawei.com> - 0.3.17
+- update license to Mulan PSL v2
+
 * Tue Jan 7 2020 Zhangsong <zhangsong34@huawei.com> - 0.3.16
 - update package
 
