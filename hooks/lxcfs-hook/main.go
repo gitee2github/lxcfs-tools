@@ -63,7 +63,7 @@ func main() {
 	}
 
 	if state.Pid <= 0 {
-		logrus.Errorf("Can't get correct pid of container:%d", state.Bundle)
+		logrus.Errorf("Can't get correct pid of container:%s", state.Bundle)
 	}
 	logrus.Infof("PID:%d", state.Pid)
 	logrus.Infof("Root:%s", state.Root)
