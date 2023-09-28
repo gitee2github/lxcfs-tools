@@ -179,7 +179,7 @@ func waitForLxcfs() error {
 }
 
 func remountAll(initMountns, initUserns string) error {
-	lxcfs_log.Info("begin remount All runing container...")
+	lxcfs_log.Info("begin remount All running container...")
 	out, err := getContainerIDAndPid()
 	if err != nil {
 		return err

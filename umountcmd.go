@@ -84,7 +84,7 @@ var umountContainer = cli.Command{
 }
 
 func umountAll(initMountns, initUserns string) error {
-	lxcfs_log.Info("begin umount All runing container...")
+	lxcfs_log.Info("begin umount All running container...")
 	out, err := execCommond("isula", []string{"ps", "--format", "{{.ID}} {{.Pid}}"})
 	if err != nil {
 		return err
